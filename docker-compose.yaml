@@ -1,0 +1,23 @@
+services:
+    database:
+        image: "postgres:16.1-alpine3.18"
+        environment:
+            POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD
+        ports:
+            - "5443:5432"
+
+    backend:
+        build:
+            context: .
+            dockerfile: Dockerfile-backend
+        ports:
+            - "3000:3000"
+        depends_on:
+            - database
+
+    # frontend:
+    #     build:
+    #         context: .
+    #         dockerfile: Dockerfile-frontend
+    #         ports:
+    #             - "8080:8080"
