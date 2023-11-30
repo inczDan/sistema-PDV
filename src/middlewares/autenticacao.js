@@ -10,13 +10,11 @@ const obterAutenticacao = async (req, res, next) => {
 
   try {
     const token = authorization.replace('Bearer', '').trim();
-    console.log(token);
 
     if (!token) {
       return res.status(401).json({ mensagem: 'Não autorizado' });
     }
     const tokenVendedor = jwt.verify(token, process.env.SECRET_JWT);
-    console.log(tokenVendedor);
 
     const { id } = tokenVendedor;
     const vendedor = await knex('vendedores').where({ id }).first();
