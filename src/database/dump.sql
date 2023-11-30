@@ -3,6 +3,7 @@ create table if not exists vendedores(
     nome VARCHAR(70) not null,
     email VARCHAR(100) unique not null,
     senha VARCHAR(70) not null,
+    cpf VARCHAR(11) unique not null,
   	quantidade_vendas int
 );
 
