@@ -1,4 +1,4 @@
-const knex = require('../../database/connection');
+const knex = require('../../../knexfile');
 const bcrypt = require('bcrypt');
 
 const editarVendedor = async (req, res) => {

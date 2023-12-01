@@ -1,4 +1,4 @@
-const knex = require('../../database/connection');
+const knex = require('../../../knexfile');
 
 const listarCategorias = async (req, res) => {
   const categorias = await knex('categorias');
