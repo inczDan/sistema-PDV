@@ -1,4 +1,4 @@
-const knex = require('../database/connection');
+const knex = require('../../knexfile');
 const jwt = require('jsonwebtoken');
 
 const obterAutenticacao = async (req, res, next) => {
