@@ -2,8 +2,12 @@ services:
   database:
     image: 'postgres:16.1-alpine3.18'
     environment:
-      POSTGRES_PASSWORD: ${DB_PASS_DEV}
-      POSTGRES_DB: ${DB_NAME_DEV}
+      NODE_ENV: ${NODE_ENV}
+      DB_HOST_DEV: ${DB_HOST_DEV}
+      DB_PORT_DEV: ${DB_PORT_DEV}
+      DB_USER_DEV: ${DB_USER_DEV}
+      DB_PASS_DEV: ${DB_PASS_DEV}
+      DB_NAME_DEV: ${DB_NAME_DEV}
     ports:
       - '5443:5432'
     volumes:
@@ -19,7 +23,7 @@ services:
       - database
     environment:
       NODE_ENV: ${NODE_ENV}
-      DB_HOST_DEV: database
+      DB_HOST_DEV: ${DB_HOST_DEV}
       DB_PORT_DEV: ${DB_PORT_DEV}
       DB_USER_DEV: ${DB_USER_DEV}
       DB_PASS_DEV: ${DB_PASS_DEV}
