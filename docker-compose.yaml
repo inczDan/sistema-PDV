@@ -1,23 +1,33 @@
 services:
-    database:
-        image: "postgres:16.1-alpine3.18"
-        environment:
-            POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD
-        ports:
-            - "5443:5432"
+  database:
+    image: 'postgres:16.1-alpine3.18'
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      DB_HOST_DEV: ${DB_HOST_DEV}
+      DB_PORT_DEV: ${DB_PORT_DEV}
+      DB_USER_DEV: ${DB_USER_DEV}
+      DB_PASS_DEV: ${DB_PASS_DEV}
+      DB_NAME_DEV: ${DB_NAME_DEV}
+    ports:
+      - '5443:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data
 
-    backend:
-        build:
-            context: .
-            dockerfile: Dockerfile-backend
-        ports:
-            - "3000:3000"
-        depends_on:
-            - database
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    depends_on:
+      - database
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      DB_HOST_DEV: ${DB_HOST_DEV}
+      DB_PORT_DEV: ${DB_PORT_DEV}
+      DB_USER_DEV: ${DB_USER_DEV}
+      DB_PASS_DEV: ${DB_PASS_DEV}
+      DB_NAME_DEV: ${DB_NAME_DEV}
 
-    # frontend:
-    #     build:
-    #         context: .
-    #         dockerfile: Dockerfile-frontend
-    #         ports:
-    #             - "8080:8080"
+volumes:
+  db_data:
