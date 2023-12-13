@@ -1,5 +1,5 @@
 const knex = require('../../../knexfile');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const loginVendedor = async (req, res) => {

@@ -2,18 +2,19 @@ services:
   database:
     image: 'postgres:16.1-alpine3.18'
     environment:
-      NODE_ENV: ${NODE_ENV}
-      DB_HOST_DEV: ${DB_HOST_DEV}
-      DB_PORT_DEV: ${DB_PORT_DEV}
-      DB_USER_DEV: ${DB_USER_DEV}
-      DB_PASS_DEV: ${DB_PASS_DEV}
-      DB_NAME_DEV: ${DB_NAME_DEV}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_NAME: ${DB_NAME}
     ports:
       - '5443:5432'
     volumes:
       - db_data:/var/lib/postgresql/data
 
   backend:
+    env_file:
+      - .env.development
     build:
       context: .
       dockerfile: Dockerfile
@@ -21,13 +22,13 @@ services:
       - '3000:3000'
     depends_on:
       - database
-    environment:
-      NODE_ENV: ${NODE_ENV}
-      DB_HOST_DEV: ${DB_HOST_DEV}
-      DB_PORT_DEV: ${DB_PORT_DEV}
-      DB_USER_DEV: ${DB_USER_DEV}
-      DB_PASS_DEV: ${DB_PASS_DEV}
-      DB_NAME_DEV: ${DB_NAME_DEV}
+
+  frontend:
+    build:
+      context: ./meu-app
+      dockerfile: Dockerfile
+    ports:
+      - '5000:5000'
 
 volumes:
   db_data:
