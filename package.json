@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./src/index.js",
-    "dev": "docker-compose up --build",
+    "dev": "docker-compose --env-file .env.development up --build",
+    "prod": "docker-compose --env-file .env.production up --build",
     "lint:check": "prettier --check .",
     "lint:fix": "prettier --write ."
   },
